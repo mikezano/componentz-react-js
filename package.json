@@ -1,31 +1,42 @@
 {
-  "name": "componentz-react-js",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "react-scripts": "3.1.1"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+	"name": "componentz-react-js",
+	"version": "0.1.0",
+	"private": true,
+	"dependencies": {
+		"bash": "0.0.1",
+		"node-sass": "^4.12.0",
+		"react": "^16.9.0",
+		"react-dom": "^16.9.0",
+		"react-router-dom": "^5.0.1",
+		"react-scripts": "3.1.1",
+		"shelljs": "^0.8.3"
+	},
+	"config": {
+		"ex": "http://go.com"
+	},
+	"scripts": {
+		"start": "react-scripts start",
+		"build": "react-scripts build",
+		"build-iis": "set PUBLIC_URL=http://go.com&& react-scripts build",
+		"build-iis-p": "set PUBLIC_URL=$blah& react-scripts build ",
+		"hbd": "echo \"happy birthday ${1-Brian}! and many returns\" ",
+		"sandbox": "build.cmd",
+		"test": "react-scripts test",
+		"eject": "react-scripts eject"
+	},
+	"eslintConfig": {
+		"extends": "react-app"
+	},
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	}
 }

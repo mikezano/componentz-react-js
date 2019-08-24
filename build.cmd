@@ -1,0 +1,1 @@
+set PUBLIC_URL=http://localhost/%~1&& react-scripts build
