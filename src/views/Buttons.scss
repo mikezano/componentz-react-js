@@ -1,0 +1,9 @@
+@import '../components/all-components';
+
+.orange {
+	@include circle-button(orange);
+}
+
+.green {
+	@include circle-button(green);
+}
