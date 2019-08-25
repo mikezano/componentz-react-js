@@ -1,18 +1,24 @@
-@mixin circle-button($color: hsla(0, 100%, 50%, 1)) {
+@mixin circle-button($color: hsla(0, 100%, 50%, 1), $size: 5rem) {
 	$block: circle-button;
 	&.#{$block} {
 		$color1: $color;
-		width: 10rem;
-		height: 10rem;
-		font-size: 5rem;
+		width: $size;
+		height: $size;
+		font-size: $size * 0.5;
 		overflow: hidden;
 		border-radius: 50%;
 		background: linear-gradient($color1, darken($color1, 10%));
-		border: 0.4rem solid darken($color1, 20%);
+		border: $size * 0.05 solid darken($color1, 20%);
 		box-shadow: 0.4rem 0.4rem 0.8rem hsla(0, 0%, 0%, 0.5);
 		transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 		outline: none;
 		margin: 0.2rem;
+
+		&:hover {
+			background: linear-gradient(lighten($color1, 10%), $color1);
+			cursor: pointer;
+			transform: scale(1.04);
+		}
 
 		&:active {
 			transform: scale(0.9);

@@ -1,7 +1,7 @@
 @import '../components/all-components';
 
 .orange {
-	@include circle-button(orange);
+	@include circle-button(orange, 10rem);
 }
 
 .green {
