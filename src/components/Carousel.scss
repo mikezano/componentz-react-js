@@ -1,0 +1,74 @@
+:root {
+	--component-count: 3;
+	--component-width: 500px;
+	--component-height: 500px;
+	--link-height: 2rem;
+}
+body {
+	margin: 0;
+	font-family: 'Arial';
+}
+#links {
+	height: 2rem;
+}
+#links a {
+	margin: 1rem;
+	padding: 0.3rem;
+	border-radius: 0.2rem;
+	border: 1px solid #0071aa;
+	background: linear-gradient(#0071c5, #0071c9);
+	color: white;
+	text-decoration: none;
+	box-shadow: 0.1rem 0.1rem 0.2rem hsla(0, 0%, 0%, 0.5);
+	transition: all 0.2s ease-in-out;
+}
+#links a:hover {
+	box-shadow: 0.2rem 0.2rem 0.3rem hsla(0, 0%, 0%, 0.5);
+	transform: scale(2.1);
+}
+.carousel {
+	width: 100vw;
+	height: calc(var(--component-height) - var(--link-height));
+	overflow: hidden;
+	background-color: gray;
+}
+.carousel__container {
+	border: 1px solid black;
+	display: flex;
+	width: calc(var(--component-width) * var(--component-count));
+	height: 100%;
+}
+.carousel__component {
+	width: var(--component-width);
+	transition: all 0.5s ease-in-out;
+	display: flex;
+	justify-content: center;
+}
+#a {
+	background-color: green;
+}
+#b {
+	background-color: red;
+}
+#c {
+	background-color: orange;
+}
+
+table {
+	text-align: left;
+	width: 50vw;
+	border: 1px solid black;
+	background-color: white;
+}
+h1 {
+	font-size: 6rem;
+}
+a[id='component1']:target ~ .carousel .carousel__component {
+	transform: translateX(0);
+}
+a[id='component2']:target ~ .carousel .carousel__component {
+	transform: translateX(-500px);
+}
+a[id='component3']:target ~ .carousel .carousel__component {
+	transform: translateX(-1000px);
+}

@@ -204,13 +204,14 @@ class DropdownHierarchyCheckbox extends PureComponent {
 				>
 					{this.state.items.map(item => {
 						return (
-							<li className="dropdown__item" key={item.id} htmlFor={item.id}>
+							<li className="dropdown__item" key={item.id}>
 								<label
-									className={
+									htmlFor={item.id}
+									className={`dropdown__item-label ${
 										item.parentId === null
 											? 'dropdown__item--parent'
 											: 'dropdown__item--child'
-									}
+									}`}
 								>
 									<input
 										type="checkbox"
@@ -218,13 +219,14 @@ class DropdownHierarchyCheckbox extends PureComponent {
 										name={item.id}
 										onChange={e => this.toggleItem(e)}
 										checked={item.isChecked}
-										className="dropdown__checkbox"
+										className={`dropdown__checkbox `}
 									/>
-
-									{item.name
-										.replace(/&nbsp;/g, ' ')
-										.replace('<b>', '')
-										.replace('</b>', '')}
+									<span>
+										{item.name
+											.replace(/&nbsp;/g, ' ')
+											.replace('<b>', '')
+											.replace('</b>', '')}
+									</span>
 								</label>
 							</li>
 						);

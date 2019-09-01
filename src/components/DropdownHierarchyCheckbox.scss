@@ -47,15 +47,13 @@
 	&__item {
 		white-space: nowrap;
 		text-overflow: ellipsis;
+	}
+	&__item-label {
 		display: flex;
 		align-items: center;
-
-		font-weight: normal;
-	}
-	&__label {
-		flex: auto;
 		padding: 0 1rem;
 	}
+
 	&__item--parent {
 		font-weight: bold;
 		padding-left: 0.5rem;

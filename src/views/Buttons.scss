@@ -5,5 +5,5 @@
 }
 
 .green {
-	@include circle-button(green);
+	@include circle-button(green, 8rem);
 }
