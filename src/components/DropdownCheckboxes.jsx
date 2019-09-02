@@ -1,6 +1,5 @@
 import React, { PureComponent } from "react";
-import "./DropdownHierarchyCheckbox.scss";
-//const elementClosest = require("element-closest");
+import "./DropdownCheckboxes.scss";
 
 if (!Element.prototype.matches) {
 	Element.prototype.matches =
@@ -19,11 +18,11 @@ if (!Element.prototype.closest) {
 	};
 }
 
-class DropdownHierarchyCheckbox extends PureComponent {
+class DropdownCheckboxes extends PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {
-			items: [{ id: -1, parentId: -1, name: "All", isChecked: false }, ...props.items],
+			items: [{ id: -1, name: "All", isChecked: false }, ...props.items],
 			onDropdownClosed: props.onDropdownClosed,
 			selectedCount: "",
 			selectedItems: [],
@@ -70,36 +69,6 @@ class DropdownHierarchyCheckbox extends PureComponent {
 		});
 	}
 
-	toggleParentItems(item, isChecked) {
-		let childItems = this.state.items.filter(i => i.parentId === item.id);
-		childItems.unshift(item);
-		childItems = childItems.map(i => {
-			return { ...i, isChecked };
-		});
-
-		const updatedItems = this.state.items.map(i => {
-			//last condition will uncheck 'all'
-			if (i.parentId === item.id || i.id === item.id || (i.id === -1 && !isChecked))
-				i.isChecked = isChecked;
-			return i;
-		});
-
-		let nextSelectedItems = [];
-		if (isChecked) {
-			const newAdditions = childItems.filter(
-				i => this.state.selectedItems.filter(s => s.id == i.id) >= 0
-			);
-			nextSelectedItems = [...this.state.selectedItems, ...newAdditions];
-		} else {
-			const prevSelectedItems = [...this.state.selectedItems];
-			nextSelectedItems = prevSelectedItems.filter(item => {
-				//means you couldn't find previous item in the set of unchecked
-				return childItems.filter(r => r.id === item.id).length === 0;
-			});
-		}
-		this.setState({ selectedItems: nextSelectedItems, items: updatedItems });
-	}
-
 	toggleSingleItem(item, isChecked) {
 		const updatedItems = this.state.items.map(i => {
 			if (
@@ -130,9 +99,7 @@ class DropdownHierarchyCheckbox extends PureComponent {
 		const id = element.getAttribute("id") - 0; //magic
 		const item = this.state.items.filter(x => x.id === id)[0];
 
-		if (item.parentId === null && item.name !== "All") {
-			this.toggleParentItems(item, isChecked);
-		} else {
+		if (item.name !== "All") {
 			this.toggleSingleItem(item, isChecked);
 		}
 
@@ -144,7 +111,7 @@ class DropdownHierarchyCheckbox extends PureComponent {
 	}
 
 	turnOff(event, _this) {
-		const result = event.target.closest(".drop-down-hc__list");
+		const result = event.target.closest(".drop-down-checkboxes__list");
 
 		if (result != null) return;
 
@@ -159,7 +126,7 @@ class DropdownHierarchyCheckbox extends PureComponent {
 		const _this = this;
 
 		const methodForRemoval = event => {
-			const result = event.target.closest(".drop-down-hc__list");
+			const result = event.target.closest(".drop-down-checkboxes__list");
 
 			if (result != null) return;
 			_this.setState({ isShowing: false });
@@ -176,7 +143,7 @@ class DropdownHierarchyCheckbox extends PureComponent {
 	}
 
 	render() {
-		const x = "drop-down-hc";
+		const x = "drop-down-checkboxes";
 		return (
 			<div className={x}>
 				<div className={`${x}__selected`} onClick={() => this.toggleList()}>
@@ -186,12 +153,7 @@ class DropdownHierarchyCheckbox extends PureComponent {
 					{this.state.items.map(item => {
 						return (
 							<li className={`${x}__item`} key={item.id}>
-								<label
-									htmlFor={item.id}
-									className={`${x}__item-label ${
-										item.parentId === null ? `${x}__item--parent` : `${x}__item--child`
-									}`}
-								>
+								<label htmlFor={item.id} className={`${x}__item-label`}>
 									<input
 										type="checkbox"
 										id={item.id}
@@ -200,12 +162,7 @@ class DropdownHierarchyCheckbox extends PureComponent {
 										checked={item.isChecked}
 										className={`${x}__checkbox `}
 									/>
-									<span>
-										{item.name
-											.replace(/&nbsp;/g, " ")
-											.replace("<b>", "")
-											.replace("</b>", "")}
-									</span>
+									<span>{item.name}</span>
 								</label>
 							</li>
 						);
@@ -216,4 +173,4 @@ class DropdownHierarchyCheckbox extends PureComponent {
 	}
 }
 
-export default DropdownHierarchyCheckbox;
+export default DropdownCheckboxes;
