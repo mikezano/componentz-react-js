@@ -1,11 +1,10 @@
-import React, { PureComponent } from 'react';
-import './DropdownHierarchyCheckbox.scss';
+import React, { PureComponent } from "react";
+import "./DropdownHierarchyCheckbox.scss";
 //const elementClosest = require("element-closest");
 
 if (!Element.prototype.matches) {
 	Element.prototype.matches =
-		Element.prototype.msMatchesSelector ||
-		Element.prototype.webkitMatchesSelector;
+		Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;
 }
 
 if (!Element.prototype.closest) {
@@ -24,27 +23,21 @@ class DropdownHierarchyCheckbox extends PureComponent {
 	constructor(props) {
 		super(props);
 		this.state = {
-			items: [
-				{ id: -1, parentId: -1, name: 'All', isChecked: false },
-				...props.items,
-			],
+			items: [{ id: -1, parentId: -1, name: "All", isChecked: false }, ...props.items],
 			onDropdownClosed: props.onDropdownClosed,
-			selectedCount: '',
+			selectedCount: "",
 			selectedItems: [],
-			isShowing: false,
+			isShowing: false
 		};
 	}
 
 	componentDidMount() {
 		//get the selected items from local
 
-		const storedSelectedItems = JSON.parse(
-			localStorage.getItem('selectedItems'),
-		);
+		const storedSelectedItems = JSON.parse(localStorage.getItem("selectedItems"));
 		if (storedSelectedItems != null) {
 			const updatedItems = this.state.items.map(i => {
-				const isInLocalStorage =
-					storedSelectedItems.filter(s => s.id === i.id).length > 0;
+				const isInLocalStorage = storedSelectedItems.filter(s => s.id === i.id).length > 0;
 				if (isInLocalStorage) {
 					i.isChecked = true;
 				}
@@ -53,7 +46,7 @@ class DropdownHierarchyCheckbox extends PureComponent {
 
 			this.setState({
 				selectedItems: storedSelectedItems,
-				items: updatedItems,
+				items: updatedItems
 			});
 
 			this.state.onDropdownClosed(storedSelectedItems);
@@ -62,10 +55,7 @@ class DropdownHierarchyCheckbox extends PureComponent {
 
 	saveToLocalStorage() {
 		this.setState(state => {
-			localStorage.setItem(
-				'selectedItems',
-				JSON.stringify(state.selectedItems),
-			);
+			localStorage.setItem("selectedItems", JSON.stringify(state.selectedItems));
 		});
 	}
 
@@ -76,7 +66,7 @@ class DropdownHierarchyCheckbox extends PureComponent {
 		this.setState({
 			selectedItems: isChecked ? allToggled : [],
 			items: allToggled,
-			selectedCount: isChecked ? 'All' : '0',
+			selectedCount: isChecked ? "All" : "0"
 		});
 	}
 
@@ -89,11 +79,7 @@ class DropdownHierarchyCheckbox extends PureComponent {
 
 		const updatedItems = this.state.items.map(i => {
 			//last condition will uncheck 'all'
-			if (
-				i.parentId === item.id ||
-				i.id === item.id ||
-				(i.id === -1 && !isChecked)
-			)
+			if (i.parentId === item.id || i.id === item.id || (i.id === -1 && !isChecked))
 				i.isChecked = isChecked;
 			return i;
 		});
@@ -101,7 +87,7 @@ class DropdownHierarchyCheckbox extends PureComponent {
 		let nextSelectedItems = [];
 		if (isChecked) {
 			const newAdditions = childItems.filter(
-				i => this.state.selectedItems.filter(s => s.id == i.id) >= 0,
+				i => this.state.selectedItems.filter(s => s.id == i.id) >= 0
 			);
 			nextSelectedItems = [...this.state.selectedItems, ...newAdditions];
 		} else {
@@ -131,9 +117,7 @@ class DropdownHierarchyCheckbox extends PureComponent {
 			updatedSelectedItems.push(item);
 		} else {
 			const index = this.state.selectedItems.map(i => i.id).indexOf(item.id);
-			const indexOfParent = this.state.selectedItems
-				.map(i => i.id)
-				.indexOf(item.parentId);
+			const indexOfParent = this.state.selectedItems.map(i => i.id).indexOf(item.parentId);
 			updatedSelectedItems.splice(index, 1);
 			if (indexOfParent >= 0) updatedSelectedItems.splice(indexOfParent, 1);
 		}
@@ -143,16 +127,16 @@ class DropdownHierarchyCheckbox extends PureComponent {
 	toggleItem(event) {
 		const element = event.target;
 		const isChecked = element.checked;
-		const id = element.getAttribute('id') - 0; //magic
+		const id = element.getAttribute("id") - 0; //magic
 		const item = this.state.items.filter(x => x.id === id)[0];
 
-		if (item.parentId === null && item.name !== 'All') {
+		if (item.parentId === null && item.name !== "All") {
 			this.toggleParentItems(item, isChecked);
 		} else {
 			this.toggleSingleItem(item, isChecked);
 		}
 
-		if (item.name === 'All') {
+		if (item.name === "All") {
 			this.toggleAllItems(isChecked);
 		}
 		//this method guarantees we get the most recent version of state
@@ -160,12 +144,12 @@ class DropdownHierarchyCheckbox extends PureComponent {
 	}
 
 	turnOff(event, _this) {
-		const result = event.target.closest('.dropdown__list');
+		const result = event.target.closest(".drop-down__list");
 
 		if (result != null) return;
 
 		_this.setState({ isShowing: false });
-		document.body.removeEventListener('click', e => this.turnOff(e, this));
+		document.body.removeEventListener("click", e => this.turnOff(e, this));
 
 		this.state.onDropdownClosed(this.state.selectedItems);
 	}
@@ -175,17 +159,17 @@ class DropdownHierarchyCheckbox extends PureComponent {
 		const _this = this;
 
 		const methodForRemoval = event => {
-			const result = event.target.closest('.dropdown__list');
+			const result = event.target.closest(".drop-down__list");
 
 			if (result != null) return;
 			_this.setState({ isShowing: false });
-			document.body.removeEventListener('click', methodForRemoval);
+			document.body.removeEventListener("click", methodForRemoval);
 
 			this.state.onDropdownClosed(this.state.selectedItems);
 		};
 
 		if (nextShowState === true) {
-			document.body.addEventListener('click', methodForRemoval);
+			document.body.addEventListener("click", methodForRemoval);
 		}
 
 		this.setState({ isShowing: nextShowState });
@@ -193,24 +177,18 @@ class DropdownHierarchyCheckbox extends PureComponent {
 
 	render() {
 		return (
-			<div className="dropdown">
-				<div className="dropdown__selected" onClick={() => this.toggleList()}>
+			<div className="drop-down">
+				<div className="drop-down__selected" onClick={() => this.toggleList()}>
 					Location ({this.state.selectedItems.length}) <i className="caret" />
 				</div>
-				<ul
-					className={`dropdown__list ${
-						this.state.isShowing ? 'dropdown__list--active' : ''
-					}`}
-				>
+				<ul className={`drop-down__list ${this.state.isShowing ? "drop-down__list--active" : ""}`}>
 					{this.state.items.map(item => {
 						return (
-							<li className="dropdown__item" key={item.id}>
+							<li className="drop-down__item" key={item.id}>
 								<label
 									htmlFor={item.id}
-									className={`dropdown__item-label ${
-										item.parentId === null
-											? 'dropdown__item--parent'
-											: 'dropdown__item--child'
+									className={`drop-down__item-label ${
+										item.parentId === null ? "drop-down__item--parent" : "drop-down__item--child"
 									}`}
 								>
 									<input
@@ -219,13 +197,13 @@ class DropdownHierarchyCheckbox extends PureComponent {
 										name={item.id}
 										onChange={e => this.toggleItem(e)}
 										checked={item.isChecked}
-										className={`dropdown__checkbox `}
+										className={`drop-down__checkbox `}
 									/>
 									<span>
 										{item.name
-											.replace(/&nbsp;/g, ' ')
-											.replace('<b>', '')
-											.replace('</b>', '')}
+											.replace(/&nbsp;/g, " ")
+											.replace("<b>", "")
+											.replace("</b>", "")}
 									</span>
 								</label>
 							</li>
