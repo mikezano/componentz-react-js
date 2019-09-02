@@ -9,13 +9,13 @@
 	&__selected {
 		border: $border-size solid gray;
 		border-radius: 0.2rem;
-		//height: $height;
 		padding: $padding-size 0;
 		text-align: center;
 		color: #0071c5;
 	}
 	&__selected:hover {
 		background-color: whitesmoke;
+		cursor: pointer;
 	}
 
 	&__list {
@@ -44,10 +44,6 @@
 		display: block;
 	}
 
-	&__item {
-		white-space: nowrap;
-		text-overflow: ellipsis;
-	}
 	&__item-label {
 		display: flex;
 		align-items: center;
@@ -55,24 +51,30 @@
 	}
 
 	&__item--parent {
-		font-weight: bold;
-		padding-left: 0.5rem;
+		input[type="checkbox"] {
+			margin-right: 0.5rem;
+		}
+		span {
+			font-weight: bold;
+		}
 	}
 	&__item--child {
-		padding-left: 1.5rem;
-		font-weight: normal;
+		input[type="checkbox"] {
+			margin-right: 1.5rem;
+		}
+		span {
+			font-weight: normal;
+		}
 	}
 	&__item:hover {
 		background-color: whitesmoke;
 		cursor: pointer;
 	}
 	&__item:first-child {
+		//ALL item
 		padding-bottom: 0.2rem;
 		margin-bottom: 0.2rem;
 		border-bottom: 1px solid #ccc;
-	}
-	&__item-text {
-		padding: 0 1rem;
 	}
 }
 
@@ -93,7 +95,7 @@
 	/*  AKA, only do this if `-webkit-appearance: none` is supported. 
         Which means IE11 and Opera Mini will get the old browser-styled checkbox. 
         Which works just fine. Old browsers can get old looking things. */
-	input[type='checkbox'] {
+	input[type="checkbox"] {
 		/*  Remove the default styling.
                 `-webkit-appearance` is not an official CSS property 
                 & likely never will be. But it's also in 95% of browsers, 
@@ -107,20 +109,20 @@
 		height: 1rem;
 		border: 1px solid #777;
 		border-radius: 2px;
-		margin: 0;
+		margin: 0 0.5rem 0 0;
 		outline: none;
 	}
-	input[type='checkbox']:focus {
+	input[type="checkbox"]:focus {
 		/* Style the box when it's focused. */
 		border: 1px solid teal;
 	}
-	input[type='checkbox']:checked {
+	input[type="checkbox"]:checked {
 		/* Prepare for placing the new checkmark. */
 		position: relative;
 		/* Do a bug fix to keep iOS from adding dark background. */
 		background: none;
 	}
-	input[type='checkbox']:checked::after {
+	input[type="checkbox"]:checked::after {
 		/* Place (position) the new checkmark. */
 		position: absolute;
 
@@ -130,7 +132,7 @@
                 This is a box, turned 45 degs, with a 
                 left and bottom border to make the checkmark.
                 Created using an empty pseudo-element.*/
-		content: '';
+		content: "";
 		width: 0.8rem;
 		height: 0.3rem;
 		border: 2px solid black;
