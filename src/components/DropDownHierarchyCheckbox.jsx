@@ -144,7 +144,7 @@ class DropdownHierarchyCheckbox extends PureComponent {
 	}
 
 	turnOff(event, _this) {
-		const result = event.target.closest(".drop-down__list");
+		const result = event.target.closest(".drop-down-hc__list");
 
 		if (result != null) return;
 
@@ -159,7 +159,7 @@ class DropdownHierarchyCheckbox extends PureComponent {
 		const _this = this;
 
 		const methodForRemoval = event => {
-			const result = event.target.closest(".drop-down__list");
+			const result = event.target.closest(".drop-down-hc__list");
 
 			if (result != null) return;
 			_this.setState({ isShowing: false });
@@ -176,19 +176,20 @@ class DropdownHierarchyCheckbox extends PureComponent {
 	}
 
 	render() {
+		const x = "drop-down-hc";
 		return (
-			<div className="drop-down">
-				<div className="drop-down__selected" onClick={() => this.toggleList()}>
+			<div className={x}>
+				<div className={`${x}__selected`} onClick={() => this.toggleList()}>
 					Location ({this.state.selectedItems.length}) <i className="caret" />
 				</div>
-				<ul className={`drop-down__list ${this.state.isShowing ? "drop-down__list--active" : ""}`}>
+				<ul className={`${x}__list ${this.state.isShowing ? `${x}__list--active` : ""}`}>
 					{this.state.items.map(item => {
 						return (
-							<li className="drop-down__item" key={item.id}>
+							<li className={`${x}__item`} key={item.id}>
 								<label
 									htmlFor={item.id}
-									className={`drop-down__item-label ${
-										item.parentId === null ? "drop-down__item--parent" : "drop-down__item--child"
+									className={`${x}__item-label ${
+										item.parentId === null ? `${x}__item--parent` : `${x}__item--child`
 									}`}
 								>
 									<input
@@ -197,7 +198,7 @@ class DropdownHierarchyCheckbox extends PureComponent {
 										name={item.id}
 										onChange={e => this.toggleItem(e)}
 										checked={item.isChecked}
-										className={`drop-down__checkbox `}
+										className={`${x}__checkbox `}
 									/>
 									<span>
 										{item.name
