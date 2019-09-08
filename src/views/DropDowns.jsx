@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from '../logo.svg';
 import DDHierarchyCheckbox from '../components/DropDownHierarchyCheckbox';
 import LoadingIndicator from '../components/LoadIndicator';
+import './DropDowns.scss';
 
 class DropDowns extends Component {
 	//let loadingSpot = null;
@@ -31,26 +32,11 @@ class DropDowns extends Component {
 	};
 	render() {
 		return (
-			<div className="App">
-				<header className="App-header">
-					<img src={logo} className="App-logo" alt="logo" />
-					<p ref="loadingSpot">
-						Edit <code>src/App.js</code> and save to reload.
-					</p>
-					{/* <LoadingIndicator element={this.refs.loadingSpot} isLoading={true} /> */}
-					<a
-						className="App-link"
-						href="https://reactjs.org"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						Learn React
-					</a>
-					<DDHierarchyCheckbox
-						items={this.dropdownItems}
-						onDropdownClosed={this.onDropdownClosed.bind(this)}
-					/>
-				</header>
+			<div className="dropdowns">
+				<DDHierarchyCheckbox
+					items={this.dropdownItems}
+					onDropdownClosed={this.onDropdownClosed.bind(this)}
+				/>
 			</div>
 		);
 	}
