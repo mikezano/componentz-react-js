@@ -10,6 +10,10 @@ import Sidebar from './views/Sidebar';
 import './App.css';
 
 function App() {
+	fetch('https://jsonplaceholder.typicode.com/todos/')
+		.then(response => response.json())
+		.then(json => console.log(json));
+
 	return (
 		<div>
 			<Router>
@@ -18,7 +22,7 @@ function App() {
 				<Route path="/Components/DropDowns" component={DropDowns} />
 				<Route path="/Home" component={Home} />
 				<Route path="/Sandbox" component={Sandbox} />
-				{/* <Route path="/Buttons" component={Buttons} /> */}
+				<Route path="/Components/Buttons" component={Buttons} />
 				{/* <Route path="/" component={Buttons} /> */}
 			</Router>
 		</div>
