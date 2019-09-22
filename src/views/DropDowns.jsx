@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import logo from '../logo.svg';
-import DDHierarchyCheckbox from '../components/DropDownHierarchyCheckbox';
+import DDHierarchyCheckbox from '../components/DropdownHierarchyCheckboxes';
 import LoadingIndicator from '../components/LoadIndicator';
 import './DropDowns.scss';
 

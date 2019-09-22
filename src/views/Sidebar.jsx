@@ -19,6 +19,9 @@ class Sidebar extends Component {
 					<li className="sidebar__item">
 						<Link to="/Components/Buttons">Buttons</Link>
 					</li>
+					<li className="sidebar__item">
+						<Link to="/Components/Tables">Tables</Link>
+					</li>
 				</ul>
 			</section>
 		);
