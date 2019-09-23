@@ -11,37 +11,6 @@ class Tables extends Component {
 			columnWidths: [],
 			columnTypes: [],
 		};
-
-		//var tableWidth = window.innerWidth - 400;
-		//var columnWidth = tableWidth / 6;
-
-		// this.columns = [
-		// 	{},
-		// 	{},
-		// 	{},
-		// 	{},
-		// 	{},
-		// 	{
-		// 		type: 'dropdown',
-		// 		source: ['yes', 'no', 'maybe', 'sometimes', 'always', 'never'],
-		// 	},
-		// ];
-
-		//this.columnHeaders = ['Mike', 'Test', 'Some', 'Alpha', 'Beta', 'BOOL'];
-		// this.columnWidths = [
-		// 	columnWidth,
-		// 	columnWidth,
-		// 	columnWidth,
-		// 	columnWidth,
-		// 	columnWidth,
-		// 	columnWidth,
-		// ];
-		// this.data = [
-		// 	['', 'Tesla', 'Mercedes', 'Toyota', 'Volvo', 'yes'],
-		// 	['2019', 10, 11, 12, 13, 'yes'],
-		// 	['2020', 20, 11, 14, 13, null],
-		// 	['2021', 30, 15, 12, 13, 'no'],
-		// ];
 	}
 	setUpColumnTypes() {
 		return [
@@ -57,10 +26,10 @@ class Tables extends Component {
 		];
 	}
 	setUpColumnHeaders() {
-		return ['Mike', 'Test', 'Some', 'Alpha', 'Beta', 'BOOL'];
+		return ['Mike Mike Mike', 'Test', 'Some', 'Alpha', 'Beta', 'BOOL'];
 	}
 	setUpColumnWidths() {
-		var tableWidth = window.innerWidth - 600;
+		var tableWidth = window.innerWidth - 300;
 		var columnWidth = tableWidth / 6;
 		return [
 			columnWidth,
@@ -74,6 +43,14 @@ class Tables extends Component {
 
 	setUpData() {
 		return [
+			['', 'Tesla', 'Mercedes', 'Toyota', 'Volvo', 'yes'],
+			['2019', 10, 11, 12, 13, 'yes'],
+			['2020', 20, 11, 14, 13, null],
+			['2021', 30, 15, 12, 13, 'no'],
+			['', 'Tesla', 'Mercedes', 'Toyota', 'Volvo', 'yes'],
+			['2019', 10, 11, 12, 13, 'yes'],
+			['2020', 20, 11, 14, 13, null],
+			['2021', 30, 15, 12, 13, 'no'],
 			['', 'Tesla', 'Mercedes', 'Toyota', 'Volvo', 'yes'],
 			['2019', 10, 11, 12, 13, 'yes'],
 			['2020', 20, 11, 14, 13, null],
@@ -101,10 +78,9 @@ class Tables extends Component {
 	whatChanged(a, b) {
 		console.log(a, b);
 		if (a) {
-			const rowNumb = a[0];
-			console.log(this.data[rowNumb]);
+			const rowNumb = a[0][0];
+			console.log(this.state.data[rowNumb]);
 		}
-		//console.log(this.data[rowNumb]);
 	}
 
 	afterDropdown(a, b) {
@@ -113,8 +89,6 @@ class Tables extends Component {
 
 	render() {
 		const realTimeWidth = this.setUpColumnWidths();
-
-		console.log(this.state.columnHeaders);
 		return (
 			<div className="tables">
 				<div className="hands-on-table">
@@ -123,14 +97,15 @@ class Tables extends Component {
 					) : (
 						<HotTable
 							data={this.state.data}
-							columns={this.state.columns}
+							columns={this.state.columnTypes}
 							colWidths={realTimeWidth}
 							//stretchH="all"
 							colHeaders={this.state.columnHeaders}
 							columnSorting="true"
 							rowHeaders={true}
 							width="100%"
-							height="200"
+							height="400"
+							manualColumnResize="true"
 							afterChange={this.whatChanged.bind(this)}
 							afterDropdownMenuDefaultOptions={this.afterDropdown.bind(this)}
 							licenseKey="non-commercial-and-evaluation"
